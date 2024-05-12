@@ -1,6 +1,8 @@
+<!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
 import { ref, onMounted } from 'vue';
 import EventService from '@/services/EventService.js'
+import { RouterLink } from 'vue-router';
 const event = ref(null)
 const props = defineProps({
     id: { required: true }
@@ -19,8 +21,12 @@ onMounted(() => {
 <template>
     <div v-if="event">
         <h1>{{ event.title }}</h1>
-        <p>{{ event.time }} on {{ event.date }} @ {{ event.location }}</p>
-        <p>{{ event.description }}</p>
+        <div id="nav">
+            <RouterLink :to="{ name: 'event-details', params: { id } }">Details</RouterLink> |
+            <RouterLink :to="{ name: 'EventRegister', params: { id } }">Register</RouterLink> |
+            <RouterLink :to="{ name: 'EventEdit', params: { id } }">Edit</RouterLink>
+        </div>
+        <p>Edit Event here</p>
     </div>
 </template>
 
