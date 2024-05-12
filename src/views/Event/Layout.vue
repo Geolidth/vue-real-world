@@ -2,18 +2,28 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import EventService from '@/services/EventService.js'
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router';
+
+const router = useRouter()
 const event = ref(null)
 const props = defineProps({
     id: { required: true }
 })
 onMounted(() => {
     EventService.getEvent(props.id)
-        .then((res) => {
-            event.value = res.data
+        .then((response) => {
+            event.value = response.data
         })
-        .catch((err) => {
-            console.error(err)
+        .catch((error) => {
+            if (error.response && error.response.status == 404) {
+                router.push({
+                    name: '404Resource',
+                    params: { resource: 'event' }
+                })
+                console.err(error)
+            } else {
+                router.push({ name: 'NetworkError' })
+            }
         })
 })
 </script>

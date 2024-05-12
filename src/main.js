@@ -1,12 +1,18 @@
-import { createApp } from 'vue'
+import { createApp, reactive } from 'vue'
 import { createPinia } from 'pinia'
+import 'bootstrap/dist/css/bootstrap.css'
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle.js'
 
 import App from './App.vue'
 import router from './router'
 
 const app = createApp(App)
 
+app.use(bootstrap)
 app.use(createPinia())
 app.use(router)
+
+const GStore = reactive({ flashMessage: '' })
+app.provide('GStore', GStore)
 
 app.mount('#app')

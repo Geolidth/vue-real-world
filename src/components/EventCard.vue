@@ -13,7 +13,7 @@ defineProps({
   <RouterLink class="event-link" :to="{ name: 'event-details', params: { id: event.id } }">
     <div class="event-card">
       <!--Display event data-->
-      <h2>{{ event.title }}</h2>
+      <h3>{{ event.title }}</h3>
       <span>@{{ event.time }} on {{ event.date }}</span>
     </div>
   </RouterLink>
